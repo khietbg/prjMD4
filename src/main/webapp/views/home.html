@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kingshoes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/grid.css}">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+    <link rel="stylesheet" th:href="@{/fonts/font/css/all.min.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<div class="app">
+    <header class="header">
+        <div class="header-heading">
+            <div class="header-king">
+                <a href="" class="header-king-queen">👑 KING AND QUEEN</a>
+
+                <div th:if="${session.userLogin}" class="dropdown d-inline" >
+                    <button th:text="${session.userLogin.getFullName()}" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="logOut">LogOut</a></li>
+                    </ul>
+                </div>
+                <div th:unless="${session.userLogin}" class="d-inline" >
+                    <a href="formLogin" class="header-check">
+                        <i class="fas fa-users"></i>
+                        LOGIN</a>
+                </div>
+
+
+
+                <i class="header-hotline-icon fas fa-phone"></i>
+                <a class="header-hotline-fix" href="">
+                    Hotline:</a>
+                <a href="" class="header-hotline">0909300746</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="nav">
+        <div class="nav-pc">
+            <div class="navigation">
+                <a href="" class="navigation-logo"><img class="navigation-logo-img"
+                                                        src="/img/logo-header/cửa-hàng-giày-sneaker-chính-hàng-uy-tín-nhất-dến-king-shoes-authenti-hcm-6.png"
+                                                        alt=""></a>
+            </div>
+            <div class="nav-category">
+                <ul class="category-pc">
+                    <li class="category-pc-item"><a href="" class="category-pc-list">GIỚI THIỆU</a></li>
+                    <li class="category-pc-item category-pc-show-nike"><a href="" class="category-pc-list">
+                        NIKE
+                    </a>
+                        <ul class="category-nike-menu">
+                            <li class="category-nike-menu-item"><a class="category-nike-menu-list" href="">Nam</a>
+                            </li>
+                            <li class="category-nike-menu-item"><a class="category-nike-menu-list" href="">Nữ</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="category-pc-item category-pc-show-adidas"><a href="" class="category-pc-list">
+                        ADIDAS
+                    </a>
+                        <ul class="category-adidas-menu">
+                            <li class="category-adidas-menu-item"><a href=""
+                                                                     class="category-adidas-menu-list">Nam</a></li>
+                            <li class="category-adidas-menu-item"><a href=""
+                                                                     class="category-adidas-menu-list">Nữ</a></li>
+                        </ul>
+                    </li>
+                    <li class="category-pc-item category-pc-show-jordan"><a href="" class="category-pc-list">
+                        JORDAN</a>
+                        <ul class="category-jordan-menu">
+                            <li class="category-jordan-menu-item"><a href="" class="category-jordan-menu-list">AIR
+                                JORDAN</a></li>
+                        </ul>
+                    </li>
+                    <li class="category-pc-item category-pc-show-yeezy"><a href=""
+                                                                           class="category-pc-list">YEEZY</a>
+                        <ul class="category-yeezy-menu">
+                            <li class="category-yeezy-menu-item"><a href="" class="category-yeezy-menu-list">YEEZY
+                                BOOST 350</a></li>
+                            <li class="category-yeezy-menu-item"><a href="" class="category-yeezy-menu-list">YEEZY
+                                BOOST 700</a></li>
+                        </ul>
+                    </li>
+                    <li class="category-pc-item category-pc-show-brand"><a href="" class="category-pc-list">
+                        OTHER BRAND
+                    </a>
+                        <ul class="category-brand-menu">
+                            <li class="category-brand-menu-item"><a href="" class="category-brand-menu-list">SNEAKER
+                                AUTHENTIC</a></li>
+                            <li class="category-brand-menu-item"><a href="" class="category-brand-menu-list">Giày
+                                thể thao chạy bộ -tập gym</a></li>
+                            <li class="category-brand-menu-item"><a href="" class="category-brand-menu-list">Giày
+                                tennis nike chính hãng</a></li>
+                            <li class="category-brand-menu-item"><a href="" class="category-brand-menu-list">Dép
+                                Authentic</a></li>
+                            <li class="category-brand-menu-item"><a href="" class="category-brand-menu-list">Crep
+                                Protect vệ sinh giày Sneaker</a></li>
+                            <li class="category-brand-menu-item"><a href="" class="category-brand-menu-list">Box hộp
+                                đựng giày Sneaker</a></li>
+                        </ul>
+                    </li>
+                    <li class="category-pc-item"><a href="" class="category-pc-list">SALE</a></li>
+                    <li class="category-pc-item"><a href="" class="category-pc-list">DÂY GIÀY</a></li>
+                    <li class="category-pc-item"><a href="" class="category-pc-list">SPA GIÀY</a></li>
+                    <li class="category-pc-item"><a href="" class="category-pc-list">LIÊN HỆ</a></li>
+                </ul>
+            </div>
+            <div class="nav-search">
+                <input type="text" placeholder="Nhập từ cần tìm" class="nav-search-btn">
+                <i class="nav-search-btn-icon fas fa-search"></i>
+            </div>
+
+            <div class="nav-cart">
+                <i class="nav-cart-icon fas fa-shopping-cart"></i>
+                <span class="nav-cart-number">0</span>
+            </div>
+
+            <label for="nav-mobile-input" class="nav-bars-btn">
+                <i class="fas fa-bars"></i>
+            </label>
+            <input hidden type="checkbox" name="" class="nav-input" id="nav-mobile-input">
+            <label for="nav-mobile-input" class="nav-overlay"></label>
+            <div class="nav-mobile">
+                <label for="nav-mobile-input" class="nav-mobile-close">
+                    <i class="fas fa-times"></i>
+                </label>
+                <input class="nav-btn-search-fix" type="text" placeholder="Nhập từ cần tìm">
+                <i class="nav-btn-search-fix-icon fas fa-search"></i>
+                <ul class="nav-mobile-item">
+                    <li class="nav-mobile-list"><a href="" class="nav-mobile-link">Giới thiệu</a></li>
+                    <li class="nav-mobile-list nav-mobile-list-show-nike"><a href="" class="nav-mobile-link">Nike
+                        <i class="nav-mobile-icon fas fa-chevron-down"></i>
+                    </a></li>
+                    <li class="nav-mobile-list"><a href="" class="nav-mobile-link">Adidas
+                        <i class="nav-mobile-icon fas fa-chevron-down"></i>
+                    </a></li>
+                    <li class="nav-mobile-list"><a href="" class="nav-mobile-link">Jordan
+                        <i class="nav-mobile-icon fas fa-chevron-down"></i>
+                    </a></li>
+                    <li class="nav-mobile-list"><a href="" class="nav-mobile-link">Yeezy
+                        <i class="nav-mobile-icon fas fa-chevron-down"></i>
+                    </a></li>
+                    <li class="nav-mobile-list"><a href="" class="nav-mobile-link">Other Brands
+                        <i class="nav-mobile-icon fas fa-chevron-down"></i>
+                    </a></li>
+                    <%--
+                    <li class="nav-mobile-list"><a href="" class="nav-mobile-link">Sale</a></li>
+                    --%>
+                    <%--
+                    <li class="nav-mobile-list"><a href="" class="nav-mobile-link">Dây Giày</a></li>
+                    --%>
+                    <%--
+                    <li class="nav-mobile-list"><a href="" class="nav-mobile-link">Dây Giày</a></li>
+                    --%>
+                    <li class="nav-mobile-list"><a href="" class="nav-mobile-link">Liên hệ</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="slider">
+        <div class="slider-app">
+            <input type="radio" class="slider-btn" id="b1" name="btn">
+            <input type="radio" class="slider-btn" id="b2" name="btn">
+            <input type="radio" class="slider-btn" id="b3" name="btn">
+            <div class="slider-view">
+                <img src="/img/slider-img/slider-img%201.jpg" alt="" class="slider-img slider-1">
+                <img src="/img/slider-img/slider-img%202.jpg" alt="" class="slider-img slider-2">
+                <img src="/img/slider-img/slider-img%203.png" alt="" class="slider-img slider-3">
+            </div>
+            <div class="slider-buttons">
+                <label for="b1" class="slider-button"></label>
+                <label for="b2" class="slider-button"></label>
+                <label for="b3" class="slider-button"></label>
+            </div>
+        </div>
+    </div>
+
+    <div class="commit">
+        <div class="grid wide">
+            <div class="row">
+                <div class="col l-4 m-4 c-12">
+                    <div class="commit-genuine">
+                        <i class="commit-genuine-icon far fa-credit-card"></i>
+                        <h3 class="commit-authentic">CAM KẾT CHÍNH HÃNG</h3>
+                        <span class="commit-hundred">100 % Authentic</span>
+                        <p class="commit-europe">Cam kết sản phẩm chính hãng từ Châu Âu, Châu Mỹ...</p>
+                    </div>
+                </div>
+                <div class="col l-4 m-4 c-12">
+                    <div class="commit-genuine">
+                        <i class="commit-genuine-icon fas fa-truck"></i>
+                        <h3 class="commit-authentic">GIAO HÀNG HỎA TỐC</h3>
+                        <span class="commit-hundred">Express delivery</span>
+                        <p class="commit-europe">SHIP hỏa tốc 1h nhận hàng trong nội thành HCM</p>
+                    </div>
+                </div>
+                <div class="col l-4 m-4 c-12">
+                    <div class="commit-genuine">
+                        <i class="commit-genuine-icon fas fa-phone-volume"></i>
+                        <h3 class="commit-authentic">HỖ TRỢ 24/24</h3>
+                        <span class="commit-hundred">Supporting 24/24</span>
+                        <p class="commit-europe">Gọi ngay</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="grid">
+            <div class="col l-5 m-5 c-12">
+                <div class="container-new">
+                    <a href="" class="container-letter">- SẢN PHẨM MỚI</a>
+                </div>
+            </div>
+        </div>
+        <div class="container-product">
+            <div class="grid">
+                <div class="col l-12 m-12 c-12">
+                    <div class="row">
+                        <div class="col l-2-4 m-4 c-6">
+                            <div class="container-product-app">
+                                <div class="container-product-column">
+                                    <a href="" class="product-item"><img class="product-item-img"
+                                                                         src="/img/product/product-1.jpeg" alt=""></a>
+                                </div>
+                                <div class="product-description">
+                                    <a href="" class="product-description-list">AIR MAX 90 HOME & AWAY BLUE</a>
+                                </div>
+
+                                <div class="product-evaluate">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+
+                                <div class="product-price">
+                                    <span class="product-price-item">3,900,000 đ</span>
+                                </div>
+                                <div class="product-new-list">
+                                    New
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col l-2-4 m-4 c-6">
+                            <div class="container-product-app">
+                                <div class="container-product-column">
+                                    <a href="" class="product-item"><img class="product-item-img"
+                                                                         src="{@assets/img/product/product-2.jpg"
+                                                                         alt=""></a>
+                                </div>
+                                <div class="product-description">
+                                    <a href="" class="product-description-list">AIR FORCE 1</a>
+                                </div>
+
+                                <div class="product-evaluate">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+
+                                <div class="product-price">
+                                    <span class="product-price-item">2,900,000 đ</span>
+                                </div>
+                                <div class="product-new-list">
+                                    New
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col l-2-4 m-4 c-6">
+                            <div class="container-product-app">
+                                <div class="container-product-column">
+                                    <a href="" class="product-item"><img class="product-item-img"
+                                                                         src="/img/product/product-3.jpeg" alt=""></a>
+                                </div>
+                                <div class="product-description">
+                                    <a href="" class="product-description-list">SUPERSTAR</a>
+                                </div>
+
+                                <div class="product-evaluate">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+
+                                <div class="product-price">
+                                    <span class="product-price-item">1,800,000 đ</span>
+                                </div>
+                                <div class="product-new-list">
+                                    New
+                                </div>
+                                <div class="product-discount">
+                                    -8%
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col l-2-4 m-4 c-6">
+                            <div class="container-product-app">
+                                <div class="container-product-column">
+                                    <a href="" class="product-item"><img class="product-item-img"
+                                                                         src="/img/product/product-4.jpeg" alt=""></a>
+                                </div>
+                                <div class="product-description">
+                                    <a href="" class="product-description-list">JORDAN 1 LOW GREY CAMO</a>
+                                </div>
+
+                                <div class="product-evaluate">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+
+                                <div class="product-price">
+                                    <span class="product-price-item">7,200,000 đ</span>
+                                </div>
+                                <div class="product-new-list">
+                                    New
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col l-2-4 m-4 c-6">
+                            <div class="container-product-app">
+                                <div class="container-product-column">
+                                    <a href="" class="product-item"><img class="product-item-img"
+                                                                         src="/img/product/product-5.jpeg" alt=""></a>
+                                </div>
+                                <div class="product-description">
+                                    <a href="" class="product-description-list">YEEZY BOOST 350 V2 BLACK</a>
+                                </div>
+
+                                <div class="product-evaluate">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+
+                                <div class="product-price">
+                                    <span class="product-price-item">16,000,000 đ</span>
+                                </div>
+                                <div class="product-new-list">
+                                    New
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col l-2-4 m-4 c-6">
+                            <div class="container-product-app">
+                                <div class="container-product-column">
+                                    <a href="" class="product-item"><img class="product-item-img"
+                                                                         src="/img/product/product-1.jpeg" alt=""></a>
+                                </div>
+                                <div class="product-description">
+                                    <a href="" class="product-description-list">AIR MAX 90 HOME & AWAY BLUE</a>
+                                </div>
+
+                                <div class="product-evaluate">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+
+                                <div class="product-price">
+                                    <span class="product-price-item">3,900,000 đ</span>
+                                </div>
+                                <div class="product-new-list">
+                                    New
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col l-2-4 m-4 c-6">
+                            <div class="container-product-app">
+                                <div class="container-product-column">
+                                    <a href="" class="product-item"><img class="product-item-img"
+                                                                         src="/img/product/product-2.jpg" alt=""></a>
+                                </div>
+                                <div class="product-description">
+                                    <a href="" class="product-description-list">AIR FORCE 1</a>
+                                </div>
+
+                                <div class="product-evaluate">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+
+                                <div class="product-price">
+                                    <span class="product-price-item">2,900,000 đ</span>
+                                </div>
+                                <div class="product-new-list">
+                                    New
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col l-2-4 m-4 c-6">
+                            <div class="container-product-app">
+                                <div class="container-product-column">
+                                    <a href="" class="product-item"><img class="product-item-img"
+                                                                         src="/img/product/product-3.jpeg" alt=""></a>
+                                </div>
+                                <div class="product-description">
+                                    <a href="" class="product-description-list">SUPERSTAR</a>
+                                </div>
+
+                                <div class="product-evaluate">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+
+                                <div class="product-price">
+                                    <span class="product-price-item">1,800,000 đ</span>
+                                </div>
+                                <div class="product-new-list">
+                                    New
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col l-2-4 m-4 c-6">
+                            <div class="container-product-app">
+                                <div class="container-product-column">
+                                    <a href="" class="product-item"><img class="product-item-img"
+                                                                         src="/img/product/product-4.jpeg" alt=""></a>
+                                </div>
+                                <div class="product-description">
+                                    <a href="" class="product-description-list">JORDAN 1 LOW GREY CAMO</a>
+                                </div>
+
+                                <div class="product-evaluate">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+
+                                <div class="product-price">
+                                    <span class="product-price-item">7,200,000 đ</span>
+                                </div>
+                                <div class="product-new-list">
+                                    New
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col l-2-4 m-4 c-6">
+                            <div class="container-product-app">
+                                <div class="container-product-column">
+                                    <a href="" class="product-item"><img class="product-item-img"
+                                                                         src="/img/product/product-5.jpeg" alt=""></a>
+                                </div>
+                                <div class="product-description">
+                                    <a href="" class="product-description-list">YEEZY BOOST 350 V2 BLACK</a>
+                                </div>
+
+                                <div class="product-evaluate">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+
+                                <div class="product-price">
+                                    <span class="product-price-item">16,000,000 đ</span>
+                                </div>
+                                <div class="product-new-list">
+                                    New
+                                </div>
+                                <div class="product-discount">
+                                    -8%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="product-next">
+            <div class="grid wide">
+                <div class="row">
+                    <div class="col l-12 m-12 c-12">
+                        <ul class="product-to-page">
+                            <li class="product-to-page-item"><a href="" class="product-to-page-one">1</a></li>
+                            <li class="product-to-page-item"><a href="" class="product-to-page-two">2</a></li>
+                            <li class="product-to-page-item"><a href="" class="product-to-page-three">3</a></li>
+                            <li class="product-to-page-item"><a href="" class="product-to-page-four">4</a></li>
+                            <li class="product-to-page-item"><a href="" class="product-to-page-right">></a></li>
+                            <li class="product-to-page-item"><a href="" class="product-to-page-double">>></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="col l-5 m-5 c-12">
+                <div class="container-new">
+                    <a href="" class="container-letter">- PHỤ KIỆN</a>
+                </div>
+            </div>
+        </div>
+        <div class="container-product">
+            <div class="grid">
+                <div class="col l-12 m-12 c-12">
+                    <div class="row">
+                        <div class="col l-2-4 m-4 c-6">
+                            <div class="container-product-app">
+                                <div class="container-product-column">
+                                    <a href="" class="product-item"><img class="product-item-img"
+                                                                         src="/img/accessory/accessory%201.jpg" alt=""></a>
+                                </div>
+                                <div class="product-description">
+                                    <a href="" class="product-description-list">AIR MAX 90 HOME & AWAY BLUE</a>
+                                </div>
+
+                                <div class="product-evaluate">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+
+                                <div class="product-price">
+                                    <span class="product-price-item">3,900,000 đ</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col l-2-4 m-4 c-6">
+                            <div class="container-product-app">
+                                <div class="container-product-column">
+                                    <a href="" class="product-item"><img class="product-item-img"
+                                                                         src="/img/accessory/accessory%202.jpg" alt=""></a>
+                                </div>
+                                <div class="product-description">
+                                    <a href="" class="product-description-list">AIR FORCE 1</a>
+                                </div>
+
+                                <div class="product-evaluate">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+
+                                <div class="product-price">
+                                    <span class="product-price-item">2,900,000 đ</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col l-2-4 m-4 c-6">
+                            <div class="container-product-app">
+                                <div class="container-product-column">
+                                    <a href="" class="product-item"><img class="product-item-img"
+                                                                         src="/img/accessory/accessory%203.jpg" alt=""></a>
+                                </div>
+                                <div class="product-description">
+                                    <a href="" class="product-description-list">SUPERSTAR</a>
+                                </div>
+
+                                <div class="product-evaluate">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+
+                                <div class="product-price">
+                                    <span class="product-price-item">1,800,000 đ</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col l-2-4 m-4 c-6">
+                            <div class="container-product-app">
+                                <div class="container-product-column">
+                                    <a href="" class="product-item"><img class="product-item-img"
+                                                                         src="/img/accessory/accessory%204.jpeg" alt=""></a>
+                                </div>
+                                <div class="product-description">
+                                    <a href="" class="product-description-list">JORDAN 1 LOW GREY CAMO</a>
+                                </div>
+
+                                <div class="product-evaluate">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+
+                                <div class="product-price">
+                                    <span class="product-price-item">7,200,000 đ</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col l-2-4 m-4 c-12">
+                            <div class="container-product-app">
+                                <div class="container-product-column">
+                                    <a href="" class="product-item"><img class="product-item-img"
+                                                                         src="/img/accessory/accessory%205.jpeg" alt=""></a>
+                                </div>
+                                <div class="product-description">
+                                    <a href="" class="product-description-list">YEEZY BOOST 350 V2 BLACK</a>
+                                </div>
+
+
+                                <div class="product-evaluate">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+
+                                <div class="product-price">
+                                    <span class="product-price-item">16,000,000 đ</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col l-5 m-5 c-12">
+                <div class="container-new">
+                    <a href="" class="container-letter">- TIN TỨC MỚI</a>
+                </div>
+            </div>
+        </div>
+        <div class="container-instruct">
+            <div class="grid">
+                <div class="col l-12 m-12 c-12">
+                    <div class="row">
+                        <div class="col l-3 m-3 c-12">
+                            <div class="product-instruct">
+                                <div class="product-cleaning">
+                                    <a href="" class="product-cleaning-item"><img
+                                            src="/img/instruct/instruct%201.jpg" alt=""
+                                            class="product-cleaning-img"></a>
+                                    <div class="product-cleaning-hover"></div>
+                                </div>
+                                <div class="product-service">
+                                    <a href="" class="product-service-item">Dịch vụ vệ sinh giày Sneaker <br>
+                                        chuyên nghiệp tại Tân Bình <br></a>
+                                </div>
+                                <div class="product-more">
+                                    <a href="" class="product-more-item">XEM THÊM
+                                        <i class="product-more-item-icon fas fa-long-arrow-alt-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col l-3 m-3 c-12">
+                            <div class="product-instruct">
+                                <div class="product-cleaning">
+                                    <a href="" class="product-cleaning-item"><img
+                                            src="/img/instruct/instruct%202.jpg" alt=""
+                                            class="product-cleaning-img"></a>
+                                    <div class="product-cleaning-hover"></div>
+                                </div>
+                                <div class="product-service">
+                                    <a href="" class="product-service-item">Chọn Size Giày Nike, Adidas
+                                        <br>
+                                        <br>
+                                        <br>
+                                    </a>
+                                </div>
+                                <div class="product-more">
+                                    <a href="" class="product-more-item">XEM THÊM
+                                        <i class="product-more-item-icon fas fa-long-arrow-alt-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col l-3 m-3 c-12">
+                            <div class="product-instruct">
+                                <div class="product-cleaning">
+                                    <a href="" class="product-cleaning-item"><img
+                                            src="/img/instruct/instruct%203.jpg" alt=""
+                                            class="product-cleaning-img"></a>
+                                    <div class="product-cleaning-hover"></div>
+                                </div>
+                                <div class="product-service">
+                                    <a href="" class="product-service-item">Cách Đo Cỡ Chân Và Xác Định Size <br>
+                                        Việt Nam, US, UK Chuẩn Xác Tại KING SHOES<br></a>
+                                </div>
+                                <div class="product-more">
+                                    <a href="" class="product-more-item">XEM THÊM
+                                        <i class="product-more-item-icon fas fa-long-arrow-alt-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col l-3 m-3 c-12">
+                            <div class="product-instruct">
+                                <div class="product-cleaning">
+                                    <a href="" class="product-cleaning-item"><img
+                                            src="/img/instruct/instruct%204.jpg" alt=""
+                                            class="product-cleaning-img"></a>
+                                    <div class="product-cleaning-hover"></div>
+                                </div>
+                                <div class="product-service">
+                                    <a href="" class="product-service-item">KING SHOES - Hướng dẫn cách vệ sinh <br>
+                                        giày Sneaker !!! Kingshoesvn <br>
+                                    </a>
+                                </div>
+                                <div class="product-more">
+                                    <a href="" class="product-more-item">XEM THÊM
+                                        <i class="product-more-item-icon fas fa-long-arrow-alt-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section>
+    <div class="section-app">
+        <div class="grid">
+            <div class="col l-12 m-12 c-12">
+                <div class="section-app-container">
+                    <div class="col l-3 m-12 c-12">
+                        <div class="section-login">
+
+                            <h3 class="section-take">
+                                <i class="far fa-envelope"></i>
+                                ĐĂNG KÝ NHẬN CODE
+                            </h3>
+                        </div>
+                    </div>
+
+                    <div class="col l-5 m-12 c-12">
+                        <div class="section-mail">
+                            <input type="email" placeholder="Địa chỉ email của bạn" class="section-mail-btn">
+                            <input type="submit" value="Đăng Ký" class="section-create-account">
+                        </div>
+                    </div>
+
+                    <div class="col l-4 m-12 c-12">
+                        <div class="section-voucher">
+                            <p class="section-now">...Nhận Ngay
+                            <h3 class="section-voucher-us">VOUCHER 100k</h3>
+                            từ chúng tôi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-app">
+        <div class="grid">
+            <div class="col l-12 m-12 c-12">
+                <div class="row">
+
+                    <div class="col l-4 m-4 c-12">
+                        <div class="footer-info">
+                            <a href="" class="footer-logo"><img class="footer-logo-img"
+                                                                src="/img/footer-logo/cua-hang-giay-sneaker-chinh-giay-uy-tin-nhat-den-king-shoes-authenti-hcm-2-1624430336.png"
+                                                                alt=""></a>
+                            <h3 class="footer-contact">THÔNG TIN LIÊN HỆ</h3>
+                            <p class="footer-official">KINGSHOES.VN Trang Thông Tin Chính Thức.</p>
+                            <p class="footer-address">⛪ Địa chỉ: 192/2 Nguyễn Thái Bình, Phường 12, Quận Tân Bình,
+                                Thành phố Hồ Chí Minh</p>
+                            <p class="footer-email">Email : cskh.kingshoes.vn@gmail.com</p>
+                            <p class="footer-link"><a href="" class="footer-link-list">https://kingshoes.vn/</a></p>
+                            <p class="footer-link"><a href=""
+                                                      class="footer-link-list">https://twitter.com/KingShoes_vn</a></p>
+                            <p class="footer-link"><a href=""
+                                                      class="footer-link-list">https://instagram.com/KingShoes.vn</a>
+                            </p>
+                            <p class="footer-link"><a href=""
+                                                      class="footer-link-list">https://facebook.com/pg/www.KingShoes.vn</a>
+                            </p>
+                            <p class="footer-link"><a href=""
+                                                      class="footer-link-list">https://www.youtube.com/www.KingShoes.vn</a>
+                            </p>
+                            <p class="footer-link"><a href=""
+                                                      class="footer-link-list">http://bit.ly/KINGSHOES_map</a></p>
+                            <p class="footer-link"><a href=""
+                                                      class="footer-link-list">https://www.tiktok.com/@kingshoes.vn</a>
+                            </p>
+                            <p class="footer-link"><a href=""
+                                                      class="footer-link-list">https://www.tiktok.com/@kingshoes_sneaker.radio</a>
+                            </p>
+                            <p class="footer-hotline">☎️ Hotline Bán Hàng: 0909.300.746 - 0909.45.0001</p>
+                            <p class="footer-care">☎️ Hotline CSKH: 0902.368.001</p>
+                            <div class="footer-introduce">
+                                <video class="content-check-video" width="100%" controls>
+                                    <source
+                                            src="/img/video/yt1s.com%20-%20Checkin%20Kingshoesvn%20cửa%20hàng%20Sneaker%20chính%20hãng%20uy%20tín%20nhất%20tại%20HCM_v720P.mp4"
+                                            type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col l-4 m-4 c-12">
+                        <div class="footer-regime">
+                            <div class="footer-support">
+                                <h3 class="footer-client">HỖ TRỢ KHÁCH HÀNG</h3>
+                                <p class="footer-client-item"><a href="" class="footer-client-list">Chăm sóc khách
+                                    hàng</a></p>
+                                <p class="footer-client-item"><a href="" class="footer-client-list">Thanh toán</a>
+                                </p>
+                                <p class="footer-client-item"><a href="" class="footer-client-list">Hướng dẫn mua
+                                    hàng</a></p>
+                            </div>
+                            <div class="footer-policy">
+                                <h3 class="footer-insurance">CHÍNH SÁCH</h3>
+                                <p class="footer-insurance-item"><a href="" class="footer-insurance-list">Chế độ bảo
+                                    hành</a></p>
+                                <p class="footer-insurance-item"><a href="" class="footer-insurance-list">Chính sách
+                                    đổi hàng</a></p>
+                                <p class="footer-insurance-item"><a href="" class="footer-insurance-list">Bảo mật
+                                    thông tin</a></p>
+                                <p class="footer-insurance-item"><a href="" class="footer-insurance-list">Chính sách
+                                    giao nhận</a></p>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col l-12 m-12 c-12">
+                                <div class="footer-description">
+                                    <p class="footer-business">Số ĐKKD: 41N8041309 cấp ngày 17/8/2018. Nơi cấp Ủy
+                                        Ban Nhân Dân <br>
+                                        Quận Tân Bình. Hộ Kinh Doanh: KINGSHOES. Hotline: 0909.300.746</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col l-4 m-4 c-12">
+                        <div class="footer-fanpage">
+                            <div class="footer-evaluate">
+                                <h3 class="footer-fanpage-item">FANPAGE</h3>
+                                <a href=""><img
+                                        src="/img/footer-logo/200927756_1681990195319420_3101251395634522863_n.jpg"
+                                        alt="" class="footer-fanpage-img"></a>
+                                <a href="" class="footer-fanpage-list">
+                                    <button class="footer-submit-btn" type="submit">
+                                        <i class="fab fa-facebook-square"></i>
+                                        Thích Trang
+                                    </button>
+                                </a>
+                                <a href="" class="footer-btn-mess">
+                                    <button class="footer-submit-btn-mess"
+                                            type="submit">
+                                        <i class="fas fa-comments"></i>
+                                        Gửi Tin Nhắn
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="footer-remarkable">
+                                <a href="" class="footer-remarkable-item"><img
+                                        src="/img/footer-logo/footer-img%201.jpg" alt=""
+                                        class="footer-remarkable-img"></a>
+                                <a href="" class="footer-remarkable-item"><img
+                                        src="/img/footer-logo/footer-img%202.jpg" alt=""
+                                        class="footer-remarkable-img"></a>
+                                <a href="" class="footer-remarkable-item"><img
+                                        src="/img/footer-logo/footer-img%203.jpg" alt=""
+                                        class="footer-remarkable-img"></a>
+                                <a href="" class="footer-remarkable-item"><img
+                                        src="/img/footer-logo/footer-img%20%204.jpg" alt=""
+                                        class="footer-remarkable-img"></a>
+                                <a href="" class="footer-remarkable-item"><img
+                                        src="/img/footer-logo/footer-img%205.jpg" alt=""
+                                        class="footer-remarkable-img"></a>
+                                <a href="" class="footer-remarkable-item"><img
+                                        src="/img/footer-logo/footer-img%206.jpg" alt=""
+                                        class="footer-remarkable-img"></a>
+                                <a href="" class="footer-remarkable-item"><img
+                                        src="/img/footer-logo/footer-img%207.jpg" alt=""
+                                        class="footer-remarkable-img"></a>
+                                <a href="" class="footer-remarkable-item"><img
+                                        src="/img/footer-logo/footer-img%208.jpg" alt=""
+                                        class="footer-remarkable-img"></a>
+                                <a href="" class="footer-remarkable-item"><img
+                                        src="/img/footer-logo/footer-img%209.jpg" alt=""
+                                        class="footer-remarkable-img"></a>
+                                <a href="" class="footer-remarkable-item"><img
+                                        src="/img/footer-logo/footer-img%2010.jpg" alt=""
+                                        class="footer-remarkable-img"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col l-12 m-12 c-12">
+                    <div class="footer-license">
+                        <p class="footer-license-item">© Bản quyền thuộc về
+                        <h3 class="footer-license-logo">KINGSHOES.VN</h3>
+                        <a href="" class="footer-standard">Thiet Ke Web Chuẩn SEO</a>
+                        <p class="footer-standard-by-item">Bởi</p>
+                        <a href="" class="footer-standard-link">SEOWEBMAKER.COM</a>
+                        <div class="footer-license-item-link">
+                            <a href="" class="footer-license-list">Giày chạy bộ,</a>
+                            <a href="" class="footer-license-list">Giày tập Gym,</a>
+                            <a href="" class="footer-license-list">Giày tập Yoga,</a>
+                            <a href="" class="footer-license-list">Giày thể thao,</a>
+                            <a href="" class="footer-license-list">Giày chính hãng</a>
+                        </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div class="footer-active">
+    <a class="footer-active-item" href=""><img src="/img/footer-logo/zalo-icon-2.png" alt=""
+                                               class="footer-active-img"></a>
+    <div class="footer-active-fix-icon"></div>
+</div>
+<div class="footer-active-mess">
+    <a href="" class="footer-active-mess-item">
+        <i class="footer-active-mess-img fab fa-facebook-messenger"></i>
+    </a>
+</div>
+
+<div class="footer-active-up">
+    <a href=""><i class="footer-active-up-icon fas fa-chevron-up"></i></a>
+</div>
+
+<label for="footer-category-input" class="footer-fliter">
+    <i class="footer-fliter-icon fas fa-filter"></i>
+</label>
+
+<input hidden type="checkbox" name="" class="footer-input" id="footer-category-input">
+
+<label for="footer-category-input" class="footer-fliter-overlay"></label>
+<div class="footer-category">
+    <label for="footer-category-input" class="footer-category-close">
+        <i class="fas fa-times"></i>
+    </label>
+    <p class="footer-category-item">Chọn Size Giày</p>
+    <input type="button" value="Chọn Size Giày" class="footer-category-btn">
+    <p class="footer-category-item">Khoảng Giá</p>
+    <input type="button" value="Tất Cả" class="footer-category-btn">
+    <p class="footer-category-item">Sắp Xếp Theo</p>
+    <input type="button" value="Giá Thấp đến cao" class="footer-category-btn">
+    <input type="button" value="Tìm Giày Ngay" class="footer-category-btn-search">
+    <i class="footer-category-btn-search-icon fas fa-search"></i>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+</body>
+</html>
