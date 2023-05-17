@@ -20,13 +20,14 @@ import java.io.IOException;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"ra.controller"})
+@ComponentScan(basePackages = {"ra.controller","ra.model"})
 //@PropertySource("classpath:upload_file.properties")
 public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAware {
     @Value("${file-upload}")
     private String fileUpload;
 
     private ApplicationContext applicationContext;
+    private String FILEPATCH = "/Users/minhkhiet/javaMD3DINHVANKHIET/MD4project/src/main/resources/assets/img/imgProduct/";
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -81,7 +82,7 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
                         "classpath:/assets/admin/scss/",
                         "classpath:/assets/admin/plugins/",
                         "classpath:/assets/admin/bootstrap/"
-                );
+                        );
     }
 
     @Bean(name = "multipartResolver")

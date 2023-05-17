@@ -1,25 +1,31 @@
 package ra.model.entity;
 
 public class Product {
+    private int catalogId;
     private int productId;
     private String productName;
     private String image;
-    private int sizeId;
     private float price;
-    private int catalogId;
     private int productQuantity;
     private boolean productStatus;
 
-    public Product() {
+    public Product(int catalogId, String productName, String image, float price) {
+        this.catalogId = catalogId;
+        this.productName = productName;
+        this.image = image;
+        this.price = price;
     }
 
-    public Product(int productId, String productName, String image, int sizeId, float price, int catalogId, int productQuantity, boolean productStatus) {
+    public Product() {
+
+    }
+
+    public Product(int catalogId, int productId, String productName, String image, float price, int productQuantity, boolean productStatus) {
+        this.catalogId = catalogId;
         this.productId = productId;
         this.productName = productName;
         this.image = image;
-        this.sizeId = sizeId;
         this.price = price;
-        this.catalogId = catalogId;
         this.productQuantity = productQuantity;
         this.productStatus = productStatus;
     }
@@ -48,13 +54,6 @@ public class Product {
         this.image = image;
     }
 
-    public int getSizeId() {
-        return sizeId;
-    }
-
-    public void setSizeId(int sizeId) {
-        this.sizeId = sizeId;
-    }
 
     public float getPrice() {
         return price;

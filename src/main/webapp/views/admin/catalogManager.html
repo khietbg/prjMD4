@@ -243,11 +243,13 @@
                 <tr th:each="catalog : ${list}">
                   <td th:utext="${list.indexOf(catalog)+1}"></td>
                   <td th:text="${catalog.catalogName}"></td>
-                  <td th:text="${catalog.catalogStatus}"></td>
-
+                  <td th:if="${catalog.catalogStatus}==true" th:text="Stock">
+                  </td>
+                  <td th:unless="${catalog.catalogStatus}==true" th:text="SoldOut" >
+                  </td>
                   <td>
-                    <button class="btn-danger"><a th:href="@{'/deleteCatalog/' + ${catalog.catalogId}}">Delete</a></button>
-                    <button class="badge-warning"><a th:href="@{'/editCatalog/' + ${catalog.catalogId}}">Edit</a></button>
+                    <button class="text-danger"><a th:href="@{'/deleteCatalog/' + ${catalog.catalogId}}">Delete</a></button>
+                    <button class="btn-warning"><a th:href="@{'/editCatalog/' + ${catalog.catalogId}}">Edit</a></button>
                   </td>
                 </tr>
                 </tbody>

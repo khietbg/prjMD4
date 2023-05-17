@@ -6,7 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ra.model.entity.Product;
 import ra.model.entity.User;
+import ra.model.service.productService.IProductService;
+import ra.model.service.productService.ProductServiceIpm;
 import ra.model.service.userService.UserServiceIpm;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +19,11 @@ import java.util.List;
 @RequestMapping("/")
 public class HomeController {
     UserServiceIpm userServiceIpm= new UserServiceIpm();
+    IProductService productService = new ProductServiceIpm();
     @GetMapping("/")
-    public String home(){
+    public String home(Model model){
+        List<Product> productList = productService.findAll();
+        model.addAttribute("listProduct",productList);
         return "home";
     }
     @GetMapping("formLogin")
@@ -64,7 +70,7 @@ public class HomeController {
         return "home";
     }
     @GetMapping("/blockUser/{id}")
-    public String deleteCatalog(@PathVariable("id") int id){
+    public String blookUser(@PathVariable("id") int id){
         boolean check = userServiceIpm.blockUser(id);
         if (check){
             return "redirect:/userManager";

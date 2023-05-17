@@ -3,6 +3,7 @@ package ra.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ra.model.entity.Catalog;
@@ -48,8 +49,8 @@ public class CatalogController {
         return "admin/editCatalog";
     }
     @PostMapping("updateCatalog")
-    public String updateCatalog(Catalog catalog){
-        boolean check = catalogService.update(catalog);
+    public String updateCatalog(@ModelAttribute("editCatalog") Catalog editCatalog){
+        boolean check = catalogService.update(editCatalog);
         if (check){
             return "redirect:/catalogManager";
         }else {

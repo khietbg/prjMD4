@@ -1,7 +1,7 @@
-package ra.model.service.catalog;
+package ra.model.service.productService;
 
 import ra.model.entity.Catalog;
-import ra.model.entity.User;
+import ra.model.entity.Product;
 import ra.model.util.ConnectionDB;
 
 import java.sql.CallableStatement;
@@ -11,23 +11,27 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class catalogServiceIpm implements ICatalogService{
+public class ProductServiceIpm implements IProductService{
     @Override
-    public List<Catalog> findAll() {
-        List<Catalog> catalogList = null;
+    public List<Product> findAll() {
+        List<Product> productList = null;
         Connection conn = null;
         CallableStatement call = null;
         try{
-            catalogList= new ArrayList<>();
+            productList = new ArrayList<>();
             conn = ConnectionDB.getConnection();
-            call = conn.prepareCall("{call getCatalog()}");
+            call = conn.prepareCall("{call getProduct()}");
             ResultSet rs = call.executeQuery();
             while (rs.next()){
-                Catalog catalog = new Catalog();
-               catalog.setCatalogId(rs.getInt("catalogId"));
-               catalog.setCatalogName(rs.getString("catalogName"));
-               catalog.setCatalogStatus(rs.getBoolean("catalogStatus"));
-                catalogList.add(catalog);
+                Product product = new Product();
+                product.setProductId(rs.getInt(1));
+                product.setProductName(rs.getString(2));
+                product.setImage(rs.getString(3));
+                product.setPrice(rs.getFloat(4));
+                product.setCatalogId(rs.getInt(5));
+                product.setProductStatus(rs.getBoolean(6));
+                product.setProductQuantity(rs.getInt(7));
+                productList.add(product);
             }
 
         }catch (Exception e){
@@ -39,17 +43,20 @@ public class catalogServiceIpm implements ICatalogService{
                 throw new RuntimeException(e);
             }
         }
-        return catalogList;
+        return productList;
     }
 
     @Override
-    public boolean save(Catalog catalog) {
+    public boolean save(Product product) {
         Connection conn = null;
         CallableStatement call = null;
         try{
             conn = ConnectionDB.getConnection();
-            call = conn.prepareCall("{call createCatalog(?)}");
-            call.setString(1,catalog.getCatalogName());
+            call = conn.prepareCall("{call createProduct(?,?,?,?)}");
+            call.setInt(1,product.getCatalogId());
+            call.setString(2,product.getProductName());
+            call.setString(3,product.getImage());
+            call.setFloat(4,product.getPrice());
             int rs = call.executeUpdate();
             if (rs==1){
                 return true;
@@ -67,36 +74,46 @@ public class catalogServiceIpm implements ICatalogService{
     }
 
     @Override
-    public Catalog findById(Integer id) {
+    public Product findById(Integer id) {
         Connection conn = null;
         CallableStatement call = null;
-        Catalog catalog = null;
+        Product product = null;
         try {
             conn = ConnectionDB.getConnection();
-            call = conn.prepareCall("{call findCatalogById(?)}");
+            call = conn.prepareCall("{call findProductById(?)}");
             call.setInt(1,id);
             ResultSet rs = call.executeQuery();
             if (rs.next()){
-                catalog = new Catalog(rs.getInt(1),rs.getString(2),rs.getBoolean(3));
+                product = new Product();
+                product.setProductId(rs.getInt(1));
+                product.setProductName(rs.getString(2));
+                product.setImage(rs.getString(3));
+                product.setPrice(rs.getFloat(4));
+                product.setCatalogId(rs.getInt(5));
+                product.setProductStatus(rs.getBoolean(6));
+                product.setProductQuantity(rs.getInt(7));
             }
 
         }catch (Exception e){
             e.printStackTrace();
         }
-        return catalog;
+        return product;
     }
 
     @Override
-    public boolean update(Catalog catalog) {
-
+    public boolean update(Product product) {
         Connection conn = null;
         CallableStatement call = null;
         try{
             conn = ConnectionDB.getConnection();
-            call = conn.prepareCall("{call updateCatalog(?,?,?)}");
-            call.setInt(1,catalog.getCatalogId());
-            call.setString(2,catalog.getCatalogName());
-            call.setBoolean(3,catalog.isCatalogStatus());
+            call = conn.prepareCall("{call updateProduct(?,?,?,?,?,?,?)}");
+            call.setInt(1,product.getProductId());
+            call.setString(2,product.getProductName());
+            call.setString(3,product.getImage());
+            call.setFloat(4,product.getPrice());
+            call.setInt(5,product.getCatalogId());
+            call.setInt(6,product.getProductQuantity());
+            call.setBoolean(7,product.isProductStatus());
             int rs = call.executeUpdate();
             if (rs == 1){
                 return true;
@@ -114,7 +131,7 @@ public class catalogServiceIpm implements ICatalogService{
         CallableStatement call = null;
         try{
             conn = ConnectionDB.getConnection();
-            call = conn.prepareCall("{call deleteCatalog(?)}");
+            call = conn.prepareCall("{call deleteProduct(?)}");
             call.setInt(1,id);
             int rs = call.executeUpdate();
             if (rs == 1){
@@ -126,4 +143,5 @@ public class catalogServiceIpm implements ICatalogService{
         }
         return false;
     }
+
 }

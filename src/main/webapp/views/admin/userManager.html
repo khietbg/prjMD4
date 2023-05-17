@@ -247,8 +247,9 @@
                                             <td th:text="${user.age}"></td>
                                             <td th:text="${user.address}"></td>
                                             <td th:text="${user.phone}"></td>
-                                            <td th:text="${user.userStatus}"></td>
-                                            <td class="text-danger"><a th:href="@{'/blockUser/' + ${user.getUserId()}}">Block User</a></td>
+                                            <td class="text-primary" th:if="${user.userStatus}==true" th:text="activate"></td>
+                                            <td class="text-danger" th:unless="${user.userStatus}==true" th:text="block"></td>
+                                            <td class="btn btn-danger"><a th:href="@{'/blockUser/' + ${user.getUserId()}}">Block User</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
