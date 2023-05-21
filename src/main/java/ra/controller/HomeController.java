@@ -6,22 +6,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ra.model.entity.CartItem;
 import ra.model.entity.Product;
 import ra.model.entity.User;
+import ra.model.entity.UserLogin;
+import ra.model.service.cartService.CartServiceImp;
+import ra.model.service.cartService.ICartService;
 import ra.model.service.productService.IProductService;
 import ra.model.service.productService.ProductServiceIpm;
 import ra.model.service.userService.UserServiceIpm;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@RequestMapping("/")
 public class HomeController {
     UserServiceIpm userServiceIpm= new UserServiceIpm();
     IProductService productService = new ProductServiceIpm();
+    ICartService cartService = new CartServiceImp();
     @GetMapping("/")
-    public String home(Model model){
+    public String home(Model model, HttpServletRequest request){
         List<Product> productList = productService.findAll();
         model.addAttribute("listProduct",productList);
         return "home";
@@ -51,7 +56,7 @@ public class HomeController {
                 model.addAttribute("login","Not Required");
                 return "login";
             }
-            User userLogin = userServiceIpm.checkLogin(userName,password);
+            UserLogin userLogin = userServiceIpm.checkLogin(userName,password);
             if (userLogin==null){
                 model.addAttribute("login","Username or password incorrect");
                 return "login";
@@ -60,13 +65,19 @@ public class HomeController {
                 if (userLogin.isRole()){
                     return "admin/dashboard";
                 }else {
+                    List<CartItem> list =  cartService.findAllByUserLogin(userLogin.getUserId());
+                    model.addAttribute("list",list);
+                    List<Product> productList = productService.findAll();
+                    model.addAttribute("listProduct",productList);
                     return "home";
                 }
             }
     }
     @GetMapping("logOut")
-    public String logOut(HttpServletRequest request){
+    public String logOut(HttpServletRequest request,Model model){
         request.getSession().removeAttribute("userLogin");
+        List<Product> productList = productService.findAll();
+        model.addAttribute("listProduct",productList);
         return "home";
     }
     @GetMapping("/blockUser/{id}")
@@ -78,5 +89,6 @@ public class HomeController {
             return "error";
         }
     }
+
 
 }

@@ -1,6 +1,7 @@
 package ra.model.service.userService;
 
 import ra.model.entity.User;
+import ra.model.entity.UserLogin;
 import ra.model.util.ConnectionDB;
 
 import java.sql.CallableStatement;
@@ -169,9 +170,9 @@ public class UserServiceIpm implements IUserService{
     }
 
     @Override
-    public User checkLogin(String userName, String password) {
+    public UserLogin checkLogin(String userName, String password) {
         Connection conn = null;
-        User userLogin = null;
+        UserLogin userLogin = null;
         CallableStatement call=null;
         try {
             conn = ConnectionDB.getConnection();
@@ -180,7 +181,7 @@ public class UserServiceIpm implements IUserService{
             call.setString(2,password);
             ResultSet rs = call.executeQuery();
             if (rs.next()){
-                userLogin = new User();
+                userLogin = new UserLogin();
                 userLogin.setUserId(rs.getInt("userId"));
                 userLogin.setUserName(rs.getString("userName"));
                 userLogin.setPassword(rs.getString("password"));
@@ -192,11 +193,14 @@ public class UserServiceIpm implements IUserService{
                 userLogin.setPhone(rs.getString("phone"));
                 userLogin.setRole(rs.getBoolean("roleId"));
                 userLogin.setUserStatus(rs.getBoolean("userStatus"));
+                userLogin.setCartId(rs.getInt("orderId"));
             }
         }catch (Exception e){
             e.printStackTrace();
         }
         return userLogin;
     }
+
+
 
 }

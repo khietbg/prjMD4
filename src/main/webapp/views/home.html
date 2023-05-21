@@ -48,7 +48,7 @@
     </header>
 
     <div class="nav">
-        <div class="nav-pc">
+        <div class="nav-pc" style="width: 100%">
             <div class="navigation">
                 <a href="" class="navigation-logo"><img class="navigation-logo-img"
                                                         src="/img/logo-header/cửa-hàng-giày-sneaker-chính-hàng-uy-tín-nhất-dến-king-shoes-authenti-hcm-6.png"
@@ -123,8 +123,8 @@
             </div>
 
             <div class="nav-cart">
-                <i class="nav-cart-icon fas fa-shopping-cart"></i>
-                <span class="nav-cart-number">0</span>
+                <a th:href="${session.userLogin==null?'formLogin':'cart'}"><i class="nav-cart-icon fas fa-shopping-cart"></i></a>
+                <span class="nav-cart-number" th:utext="${session.userLogin==null}?'0':${list.size()}"></span>
             </div>
 
             <label for="nav-mobile-input" class="nav-bars-btn">
@@ -224,7 +224,7 @@
         <div class="grid">
             <div class="col l-5 m-5 c-12">
                 <div class="container-new">
-                    <a href="" class="container-letter">- NEW PRODUCT</a>
+                    <a href="" class="container-letter"> NEW PRODUCT</a>
                 </div>
             </div>
         </div>
@@ -232,16 +232,17 @@
             <div class="grid">
                 <div class="col l-12 m-12 c-12">
                     <div class="row">
-                        <div  th:each="pro:${listProduct}" class="col l-2-4 m-4 c-6">
+                        <th:block th:each="pro:${listProduct}">
+                        <div class="col-6 col-md-3 l-2-4 m-4 c-6">
                             <div class="container-product-app">
                                 <div class="container-product-column">
-                                    <a href="" class="product-item" th:text="${pro.productName}"></a>
-                                    <img class="product-item-img" th:src="${'/img/imgProduct/'+pro.getImage()}" alt="">
+
+                                    <img style="width: 250px;height: 300px" class="product-item-img;wid" th:src="${'/img/imgProduct/'+pro.getImage()}" alt="">
                                 </div>
                                 <div class="product-description">
                                     <a href="" class="product-description-list"></a>
                                 </div>
-
+<!---->
                                 <div class="product-evaluate">
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
@@ -249,262 +250,24 @@
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
                                 </div>
-
+<!---->
                                 <div class="product-price">
-                                    <span class="product-price-item" th:utext="${pro.price}"> đ</span>
+                                    <span style="font-size:15px" class="product-price-item text-dark"  th:text="${pro.productName}"></span>
+                                    <span style="font-size:15px" class="product-price-item text-danger" th:utext="${pro.price + ' $'}"></span>
                                 </div>
+                                <button class="btn btn-info" style="width: 80px; height: 40px;border-radius: 10px"><a class="text-dark" th:href="${session.userLogin==null}?'formLogin':'addToCart/'+${pro.productId}">AddToCart</a></button>
                                 <div class="product-new-list">
                                     New
                                 </div>
                             </div>
                         </div>
-<!--                        <div class="col l-2-4 m-4 c-6">-->
-<!--                            <div class="container-product-app">-->
-<!--                                <div class="container-product-column">-->
-<!--                                    <a href="" class="product-item"><img class="product-item-img"-->
-<!--                                                                         src="{@assets/img/product/product-2.jpg"-->
-<!--                                                                         alt=""></a>-->
-<!--                                </div>-->
-<!--                                <div class="product-description">-->
-<!--                                    <a href="" class="product-description-list">AIR FORCE 1</a>-->
-<!--                                </div>-->
-
-<!--                                <div class="product-evaluate">-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                </div>-->
-
-<!--                                <div class="product-price">-->
-<!--                                    <span class="product-price-item">2,900,000 đ</span>-->
-<!--                                </div>-->
-<!--                                <div class="product-new-list">-->
-<!--                                    New-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col l-2-4 m-4 c-6">-->
-<!--                            <div class="container-product-app">-->
-<!--                                <div class="container-product-column">-->
-<!--                                    <a href="" class="product-item"><img class="product-item-img"-->
-<!--                                                                         src="/img/product/product-3.jpeg" alt=""></a>-->
-<!--                                </div>-->
-<!--                                <div class="product-description">-->
-<!--                                    <a href="" class="product-description-list">SUPERSTAR</a>-->
-<!--                                </div>-->
-
-<!--                                <div class="product-evaluate">-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                </div>-->
-
-<!--                                <div class="product-price">-->
-<!--                                    <span class="product-price-item">1,800,000 đ</span>-->
-<!--                                </div>-->
-<!--                                <div class="product-new-list">-->
-<!--                                    New-->
-<!--                                </div>-->
-<!--                                <div class="product-discount">-->
-<!--                                    -8%-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col l-2-4 m-4 c-6">-->
-<!--                            <div class="container-product-app">-->
-<!--                                <div class="container-product-column">-->
-<!--                                    <a href="" class="product-item"><img class="product-item-img"-->
-<!--                                                                         src="/img/product/product-4.jpeg" alt=""></a>-->
-<!--                                </div>-->
-<!--                                <div class="product-description">-->
-<!--                                    <a href="" class="product-description-list">JORDAN 1 LOW GREY CAMO</a>-->
-<!--                                </div>-->
-
-<!--                                <div class="product-evaluate">-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                </div>-->
-
-<!--                                <div class="product-price">-->
-<!--                                    <span class="product-price-item">7,200,000 đ</span>-->
-<!--                                </div>-->
-<!--                                <div class="product-new-list">-->
-<!--                                    New-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col l-2-4 m-4 c-6">-->
-<!--                            <div class="container-product-app">-->
-<!--                                <div class="container-product-column">-->
-<!--                                    <a href="" class="product-item"><img class="product-item-img"-->
-<!--                                                                         src="/img/product/product-5.jpeg" alt=""></a>-->
-<!--                                </div>-->
-<!--                                <div class="product-description">-->
-<!--                                    <a href="" class="product-description-list">YEEZY BOOST 350 V2 BLACK</a>-->
-<!--                                </div>-->
-
-<!--                                <div class="product-evaluate">-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                </div>-->
-
-<!--                                <div class="product-price">-->
-<!--                                    <span class="product-price-item">16,000,000 đ</span>-->
-<!--                                </div>-->
-<!--                                <div class="product-new-list">-->
-<!--                                    New-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col l-2-4 m-4 c-6">-->
-<!--                            <div class="container-product-app">-->
-<!--                                <div class="container-product-column">-->
-<!--                                    <a href="" class="product-item"><img class="product-item-img"-->
-<!--                                                                         src="/img/product/product-1.jpeg" alt=""></a>-->
-<!--                                </div>-->
-<!--                                <div class="product-description">-->
-<!--                                    <a href="" class="product-description-list">AIR MAX 90 HOME & AWAY BLUE</a>-->
-<!--                                </div>-->
-
-<!--                                <div class="product-evaluate">-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                </div>-->
-
-<!--                                <div class="product-price">-->
-<!--                                    <span class="product-price-item">3,900,000 đ</span>-->
-<!--                                </div>-->
-<!--                                <div class="product-new-list">-->
-<!--                                    New-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col l-2-4 m-4 c-6">-->
-<!--                            <div class="container-product-app">-->
-<!--                                <div class="container-product-column">-->
-<!--                                    <a href="" class="product-item"><img class="product-item-img"-->
-<!--                                                                         src="/img/product/product-2.jpg" alt=""></a>-->
-<!--                                </div>-->
-<!--                                <div class="product-description">-->
-<!--                                    <a href="" class="product-description-list">AIR FORCE 1</a>-->
-<!--                                </div>-->
-
-<!--                                <div class="product-evaluate">-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                </div>-->
-
-<!--                                <div class="product-price">-->
-<!--                                    <span class="product-price-item">2,900,000 đ</span>-->
-<!--                                </div>-->
-<!--                                <div class="product-new-list">-->
-<!--                                    New-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col l-2-4 m-4 c-6">-->
-<!--                            <div class="container-product-app">-->
-<!--                                <div class="container-product-column">-->
-<!--                                    <a href="" class="product-item"><img class="product-item-img"-->
-<!--                                                                         src="/img/product/product-3.jpeg" alt=""></a>-->
-<!--                                </div>-->
-<!--                                <div class="product-description">-->
-<!--                                    <a href="" class="product-description-list">SUPERSTAR</a>-->
-<!--                                </div>-->
-
-<!--                                <div class="product-evaluate">-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                </div>-->
-
-<!--                                <div class="product-price">-->
-<!--                                    <span class="product-price-item">1,800,000 đ</span>-->
-<!--                                </div>-->
-<!--                                <div class="product-new-list">-->
-<!--                                    New-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col l-2-4 m-4 c-6">-->
-<!--                            <div class="container-product-app">-->
-<!--                                <div class="container-product-column">-->
-<!--                                    <a href="" class="product-item"><img class="product-item-img"-->
-<!--                                                                         src="/img/product/product-4.jpeg" alt=""></a>-->
-<!--                                </div>-->
-<!--                                <div class="product-description">-->
-<!--                                    <a href="" class="product-description-list">JORDAN 1 LOW GREY CAMO</a>-->
-<!--                                </div>-->
-
-<!--                                <div class="product-evaluate">-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                </div>-->
-
-<!--                                <div class="product-price">-->
-<!--                                    <span class="product-price-item">7,200,000 đ</span>-->
-<!--                                </div>-->
-<!--                                <div class="product-new-list">-->
-<!--                                    New-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col l-2-4 m-4 c-6">-->
-<!--                            <div class="container-product-app">-->
-<!--                                <div class="container-product-column">-->
-<!--                                    <a href="" class="product-item"><img class="product-item-img"-->
-<!--                                                                         src="/img/product/product-5.jpeg" alt=""></a>-->
-<!--                                </div>-->
-<!--                                <div class="product-description">-->
-<!--                                    <a href="" class="product-description-list">YEEZY BOOST 350 V2 BLACK</a>-->
-<!--                                </div>-->
-
-<!--                                <div class="product-evaluate">-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                    <i class="fas fa-star"></i>-->
-<!--                                </div>-->
-
-<!--                                <div class="product-price">-->
-<!--                                    <span class="product-price-item">16,000,000 đ</span>-->
-<!--                                </div>-->
-<!--                                <div class="product-new-list">-->
-<!--                                    New-->
-<!--                                </div>-->
-<!--                                <div class="product-discount">-->
-<!--                                    -8%-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        </th:block>
                     </div>
                 </div>
 
             </div>
         </div>
-        <div class="product-next">
+<!---->        <div class="product-next">
             <div class="grid wide">
                 <div class="row">
                     <div class="col l-12 m-12 c-12">
@@ -528,11 +291,11 @@
                 </div>
             </div>
         </div>
-        <div class="container-product">
+            <div class="container-product">
             <div class="grid">
                 <div class="col l-12 m-12 c-12">
                     <div class="row">
-                        <div class="col l-2-4 m-4 c-6">
+                        <div class="col-6 col-md-3">
                             <div class="container-product-app">
                                 <div class="container-product-column">
                                     <a href="" class="product-item"><img class="product-item-img"
@@ -555,7 +318,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col l-2-4 m-4 c-6">
+                        <div class="col-6 col-md-3">
                             <div class="container-product-app">
                                 <div class="container-product-column">
                                     <a href="" class="product-item"><img class="product-item-img"
@@ -578,7 +341,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col l-2-4 m-4 c-6">
+                        <div class="col-6 col-md-3">
                             <div class="container-product-app">
                                 <div class="container-product-column">
                                     <a href="" class="product-item"><img class="product-item-img"
@@ -601,7 +364,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col l-2-4 m-4 c-6">
+                        <div class="col-6 col-md-3">
                             <div class="container-product-app">
                                 <div class="container-product-column">
                                     <a href="" class="product-item"><img class="product-item-img"
@@ -624,7 +387,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col l-2-4 m-4 c-12">
+                        <div class="col-6 col-md-3">
                             <div class="container-product-app">
                                 <div class="container-product-column">
                                     <a href="" class="product-item"><img class="product-item-img"
@@ -663,7 +426,7 @@
             <div class="grid">
                 <div class="col l-12 m-12 c-12">
                     <div class="row">
-                        <div class="col l-3 m-3 c-12">
+                        <div class="col-6 col-md-3  ">
                             <div class="product-instruct">
                                 <div class="product-cleaning">
                                     <a href="" class="product-cleaning-item"><img
@@ -682,7 +445,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col l-3 m-3 c-12">
+                        <div class="col-6 col-md-3  ">
                             <div class="product-instruct">
                                 <div class="product-cleaning">
                                     <a href="" class="product-cleaning-item"><img
@@ -704,7 +467,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col l-3 m-3 c-12">
+                        <div class="col-6 col-md-3  ">
                             <div class="product-instruct">
                                 <div class="product-cleaning">
                                     <a href="" class="product-cleaning-item"><img
@@ -723,7 +486,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col l-3 m-3 c-12">
+                        <div class="col-6 col-md-3  ">
                             <div class="product-instruct">
                                 <div class="product-cleaning">
                                     <a href="" class="product-cleaning-item"><img
@@ -791,7 +554,7 @@
             <div class="col l-12 m-12 c-12">
                 <div class="row">
 
-                    <div class="col l-4 m-4 c-12">
+                    <div class="col-6 col-md-4">
                         <div class="footer-info">
                             <a href="" class="footer-logo"><img class="footer-logo-img"
                                                                 src="/img/footer-logo/cua-hang-giay-sneaker-chinh-giay-uy-tin-nhat-den-king-shoes-authenti-hcm-2-1624430336.png"
@@ -832,7 +595,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col l-4 m-4 c-12">
+                    <div class="col-6 col-md-4">
                         <div class="footer-regime">
                             <div class="footer-support">
                                 <h3 class="footer-client">HỖ TRỢ KHÁCH HÀNG</h3>
@@ -866,7 +629,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col l-4 m-4 c-12">
+                    <div class="col-6 col-md-4">
                         <div class="footer-fanpage">
                             <div class="footer-evaluate">
                                 <h3 class="footer-fanpage-item">FANPAGE</h3>
