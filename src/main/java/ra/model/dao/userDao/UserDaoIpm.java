@@ -240,4 +240,42 @@ public class UserDaoIpm implements IUserDao{
             return true;
         }
 
+    @Override
+    public User checkUserName(String userName) {
+
+        Connection conn = null;
+        CallableStatement call = null;
+        User user = null;
+        try{
+            conn = ConnectionDB.getConnection();
+            call = conn.prepareCall("{call checkExistUsername(?)}");
+            call.setString(1,userName);
+            ResultSet rs = call.executeQuery();
+            while (rs.next()){
+                user = new User();
+                user.setUserId(rs.getInt("userId"));
+                user.setUserName(rs.getString("userName"));
+                user.setPassword(rs.getString("password"));
+                user.setEmail(rs.getString("email"));
+                user.setFullName(rs.getString("fullName"));
+                user.setAge(rs.getInt("age"));
+                user.setSex(rs.getBoolean("sex"));
+                user.setAddress(rs.getString("address"));
+                user.setPhone(rs.getString("phone"));
+                user.setRole(rs.getBoolean("roleId"));
+                user.setUserStatus(rs.getBoolean("userStatus"));
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return user;
+    }
+
 }

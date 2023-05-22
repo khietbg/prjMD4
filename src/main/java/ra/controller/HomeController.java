@@ -38,13 +38,29 @@ public class HomeController {
         return "register";
     }
     @PostMapping("register")
-    public String register( User user){
-        boolean check = userServiceIpm.save(user);
-        if (check){
-            return "redirect:formLogin";
+    public String register(User user,Model model,String rePassword){
+        User user1 = userServiceIpm.checkUserName(user.getUserName());
+        if (user1 != null){
+            model.addAttribute("error","userName existed, please try again!");
+            return "register";
+        }else if (user.getUserName().trim()==""||user.getFullName().trim()==""||user.getFullName().trim()==""){
+            model.addAttribute("error","Not Required");
+            return "register";
+        }else if (user.getUserName().length()<6||user.getFullName().length()<6||user.getPassword().length()<6){
+            model.addAttribute("error","user name, full name, passWord must be at least 6 characters");
+            return "register";
+        } else if (!user.getPassword().equals(rePassword)){
+            model.addAttribute("error","rePassword not match, please try again!");
+            return "register";
         }else {
-            return "error";
+            boolean check = userServiceIpm.save(user);
+            if (check){
+                return "redirect:formLogin";
+            }else {
+                return "error";
+            }
         }
+
     }
     @PostMapping("login")
     public String login(String userName, String password, Model model, HttpServletRequest request){
@@ -56,19 +72,22 @@ public class HomeController {
             if (userLogin==null){
                 model.addAttribute("login","Username or password incorrect");
                 return "login";
-            }else {
-                request.getSession().setAttribute("userLogin",userLogin);
-                if (userLogin.isRole()){
-                    return "admin/dashboard";
-                }else {
-                    List<CartItem> list =  cartService.findAllByUserLogin(userLogin.getUserId());
-                    model.addAttribute("list",list);
-                    List<Product> productList = productService.findAll();
-                    model.addAttribute("listProduct",productList);
-                    return "home";
+            }else if (!userLogin.isUserStatus()){
+                model.addAttribute("login", "Your account has been locked, please contact admin");
+                return "login";
+            } else {
+                    request.getSession().setAttribute("userLogin",userLogin);
+                    if (userLogin.isRole()){
+                        return "admin/dashboard";
+                    }else {
+                        List<CartItem> list =  cartService.findAllByUserLogin(userLogin.getUserId());
+                        model.addAttribute("list",list);
+                        List<Product> productList = productService.findAll();
+                        model.addAttribute("listProduct",productList);
+                        return "home";
+                    }
                 }
             }
-    }
     @GetMapping("logOut")
     public String logOut(HttpServletRequest request,Model model){
         request.getSession().removeAttribute("userLogin");

@@ -9,4 +9,5 @@ public interface IUserService extends IService<User,Integer> {
     UserLogin checkLogin(String userName, String password);
     boolean changePass(int idC,String pass);
     boolean updateUser(int idUp,String fullNameUp,String emailUp,String phoneUp, String addressUp);
+    User checkUserName(String userName);
 }

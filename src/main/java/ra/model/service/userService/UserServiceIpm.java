@@ -62,4 +62,9 @@ public class UserServiceIpm implements IUserService{
     public boolean updateUser(int idUp, String fullNameUp, String emailUp, String phoneUp, String addressUp) {
         return userDao.updateUser(idUp,fullNameUp,emailUp,phoneUp,addressUp);
     }
+
+    @Override
+    public User checkUserName(String userName) {
+        return userDao.checkUserName(userName);
+    }
 }
