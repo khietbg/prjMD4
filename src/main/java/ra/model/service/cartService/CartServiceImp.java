@@ -2,6 +2,7 @@ package ra.model.service.cartService;
 
 import ra.model.dao.cartDao.CartDaoIpm;
 import ra.model.dao.cartDao.ICartDao;
+import ra.model.entity.Cart;
 import ra.model.entity.CartItem;
 import java.util.List;
 
@@ -50,5 +51,20 @@ public class CartServiceImp implements ICartService{
     @Override
     public int checkOut(int orderID, float total, String phone, String address, int userId) {
         return cartDao.checkOut(orderID,total,phone,address,userId);
+    }
+
+    @Override
+    public List<Cart> getCartByUserLogin(int id) {
+        return cartDao.getCartByUserLogin(id);
+    }
+
+    @Override
+    public List<CartItem> getCartItemByCartId(int id) {
+        return cartDao.getCartItemByCartId(id);
+    }
+
+    @Override
+    public List<Cart> getAllCart() {
+        return cartDao.getAllCart();
     }
 }

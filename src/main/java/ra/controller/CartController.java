@@ -81,4 +81,15 @@ public class CartController {
         model.addAttribute("listProduct",productList);
         return "home";
     }
+    @GetMapping("/cartDetail/{id}")
+    public String showCartDetail(@PathVariable("id") int id,Model model){
+       List<CartItem> cartItemList = cartService.getCartItemByCartId(id);
+       int total = 0;
+        for (CartItem c:cartItemList) {
+            total +=(c.getPrice()*c.getQuantity());
+        }
+        model.addAttribute("total",total);
+       model.addAttribute("list",cartItemList);
+        return "cartDetail";
+    }
 }

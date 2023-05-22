@@ -50,5 +50,16 @@ public class UserServiceIpm implements IUserService{
     @Override
     public UserLogin checkLogin(String userName, String password) {
         return userDao.checkLogin(userName,password);
+
+    }
+
+    @Override
+    public boolean changePass(int idC, String pass) {
+        return userDao.changePass(idC,pass);
+    }
+
+    @Override
+    public boolean updateUser(int idUp, String fullNameUp, String emailUp, String phoneUp, String addressUp) {
+        return userDao.updateUser(idUp,fullNameUp,emailUp,phoneUp,addressUp);
     }
 }

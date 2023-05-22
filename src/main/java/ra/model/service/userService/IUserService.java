@@ -7,5 +7,6 @@ import ra.model.service.IService;
 public interface IUserService extends IService<User,Integer> {
     boolean blockUser(int id);
     UserLogin checkLogin(String userName, String password);
-
+    boolean changePass(int idC,String pass);
+    boolean updateUser(int idUp,String fullNameUp,String emailUp,String phoneUp, String addressUp);
 }

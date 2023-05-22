@@ -5,11 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import ra.model.entity.CartItem;
-import ra.model.entity.Product;
-import ra.model.entity.User;
-import ra.model.entity.UserLogin;
+import org.springframework.web.bind.annotation.RequestParam;
+import ra.model.entity.*;
 import ra.model.service.cartService.CartServiceImp;
 import ra.model.service.cartService.ICartService;
 import ra.model.service.productService.IProductService;
@@ -17,7 +14,6 @@ import ra.model.service.productService.ProductServiceIpm;
 import ra.model.service.userService.UserServiceIpm;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -92,8 +88,32 @@ public class HomeController {
 @GetMapping("profile")
     public String profile(HttpServletRequest request,Model model){
       UserLogin userLogin = (UserLogin) request.getSession().getAttribute("userLogin");
-      model.addAttribute("userLogin",userLogin);
+      User user = userServiceIpm.findById(userLogin.getUserId());
+      List<Cart> cartList = cartService.getCartByUserLogin(user.getUserId());
+    model.addAttribute("userLogin",user);
+    model.addAttribute("list",cartList);
         return "profile";
+}
+@GetMapping("formChangePassword")
+    public String changePass(HttpServletRequest request,Model model){
+    UserLogin userLogin = (UserLogin) request.getSession().getAttribute("userLogin");
+    model.addAttribute("userLogin",userLogin);
+    return "changePassword";
+}
+@PostMapping("changePass")
+    public String changPassword(@RequestParam("idC")int id,@RequestParam("pass")String newPass,@RequestParam("rePass")String rePass,Model model){
+        if (newPass.equals(rePass)){
+            userServiceIpm.changePass(id,newPass);
+            return "redirect:profile";
+        }else {
+           model.addAttribute("notMatch","re pass not match, please try again") ;
+           return "changePassword";
+        }
+}
+@PostMapping("updateUser")
+    public String updateUser(int idUp,String fullNameUp,String emailUp,String phoneUp, String addressUp,HttpServletRequest request){
+        userServiceIpm.updateUser(idUp,fullNameUp,emailUp,phoneUp,addressUp);
+        return "redirect:profile";
 }
 
 }

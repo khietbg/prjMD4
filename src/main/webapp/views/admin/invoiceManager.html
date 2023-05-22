@@ -151,14 +151,17 @@
                     <li class="sidebar-item">
                         <a class="sidebar-link waves-effect waves-dark sidebar-link" href="productManager"
                            aria-expanded="false">
-                            <i class="fa fa-font" aria-hidden="true"></i>
-                            <span class="hide-menu">Product Manager</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-receipt" viewBox="0 0 16 16">
+                                <path d="M1.92.506a.5.5 0 0 1 .434.14L3 1.293l.646-.647a.5.5 0 0 1 .708 0L5 1.293l.646-.647a.5.5 0 0 1 .708 0L7 1.293l.646-.647a.5.5 0 0 1 .708 0L9 1.293l.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .801.13l.5 1A.5.5 0 0 1 15 2v12a.5.5 0 0 1-.053.224l-.5 1a.5.5 0 0 1-.8.13L13 14.707l-.646.647a.5.5 0 0 1-.708 0L11 14.707l-.646.647a.5.5 0 0 1-.708 0L9 14.707l-.646.647a.5.5 0 0 1-.708 0L7 14.707l-.646.647a.5.5 0 0 1-.708 0L5 14.707l-.646.647a.5.5 0 0 1-.708 0L3 14.707l-.646.647a.5.5 0 0 1-.801-.13l-.5-1A.5.5 0 0 1 1 14V2a.5.5 0 0 1 .053-.224l.5-1a.5.5 0 0 1 .367-.27zm.217 1.338L2 2.118v11.764l.137.274.51-.51a.5.5 0 0 1 .707 0l.646.647.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.509.509.137-.274V2.118l-.137-.274-.51.51a.5.5 0 0 1-.707 0L12 1.707l-.646.647a.5.5 0 0 1-.708 0L10 1.707l-.646.647a.5.5 0 0 1-.708 0L8 1.707l-.646.647a.5.5 0 0 1-.708 0L6 1.707l-.646.647a.5.5 0 0 1-.708 0L4 1.707l-.646.647a.5.5 0 0 1-.708 0l-.509-.51z"/>
+                                <path d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm8-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5z"/>
+                            </svg>
+                            <span class="hide-menu">Invoice Manager</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="invoiceManager"
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="productManager"
                            aria-expanded="false">
-                            <i class="bi bi-receipt-cutoff"></i>
+                            <i class="bi bi-receipt"></i>
                             <span class="hide-menu">Invoice Manager</span>
                         </a>
                     </li>
@@ -208,7 +211,7 @@
         <div class="page-breadcrumb bg-white">
             <div class="row align-items-center">
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Product Manager</h4>
+                    <h4 class="page-title">Invoice Manager</h4>
                 </div>
                 <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                     <div class="d-md-flex">
@@ -229,53 +232,27 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="white-box">
-                        <h3 class="box-title">Product Manager</h3>
-                        <form action="/createProduct" method="post" enctype="multipart/form-data">
-                            <label>Catalog :</label>
-                            <select  class="form-select" aria-label="Default select example" name="catalogId" style="width: 200px">
-                                <th:block th:each="cat : ${listCat}">
-                                <option th:value="${cat.getCatalogId()}" th:text="${cat.getCatalogName()}"></option>
-                                </th:block>
-                            </select>
-                            <label>Product Name</label>
-                            <input  type="text" name="productName" >
-                            <label>Price</label>
-                            <input  type="text" name="price" >
-                            <label>image</label>
-                            <input  type="file" name="image" >
-                            <button type="submit" class="btn btn-success">create</button>
-                        </form>
-
+                        <h3 class="box-title">Incvoice Manager</h3>
                         <div class="table-responsive">
                             <table class="table text-nowrap">
                                 <thead>
                                 <tr>
-                                    <th class="border-top-0">STT</th>
-                                    <th class="border-top-0">Product ID</th>
-                                    <th class="border-top-0">Catalog Name</th>
-                                    <th class="border-top-0">Image</th>
-                                    <th class="border-top-0">Price</th>
-                                    <th class="border-top-0">Quantity</th>
-                                    <th class="border-top-0">Status</th>
-                                    <th class="text-danger" colspan="2">Action</th>
+                                    <th scope="col">STT</th>
+                                    <th scope="col">ToTal</th>
+                                    <th scope="col">Create Date</th>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">Detail</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="pro : ${list}">
-                                    <td th:utext="${list.indexOf(pro)+1}"></td>
-                                    <td th:text="${pro.productId}"></td>
-                                    <td th:each="cat:${listCat}" th:if="${cat.catalogId}==${pro.catalogId}" th:text="${cat.catalogName}">></td>
-                                    <td th:text="${pro.productName}"></td>
-                                    <td><img style="width: 70px; height: 70px" th:src="${'/img/imgProduct/'+pro.getImage()}"></td>
-                                    <td th:text="${pro.price}"></td>
-                                    <td th:text="${pro.productQuantity}"></td>
-                                    <td th:if="${pro.productStatus}==true" th:text="Stock"></td>
-                                    <td th:unless="${pro.productStatus}==true" th:text="SoldOut"></td>
-                                    <td>
-                                        <button class="btn-danger"><a th:href="@{'/deleteProduct/' + ${pro.productId}}">Delete</a></button>
-                                        <button class="btn-warning"><a th:href="@{'/editProduct/' + ${pro.productId}}">Edit</a></button>
-                                    </td>
+                                <tr th:each="cart : ${list}">
+                                    <th scope="row" th:text="${list.indexOf(cart)+1}"></th>
+                                    <td th:text="${cart.total}"></td>
+                                    <td th:text="${cart.createDate}"></td>
+                                    <td th:text="${cart.address}"></td>
+                                    <td><a th:href="@{'/cartDetail/'+${cart.cartId}}" class="btn-success">Detail</a></td>
                                 </tr>
+                                <tr><h3 th:text="${'Total Invoice: $ '+total}"></h3></tr>
                                 </tbody>
                             </table>
                         </div>

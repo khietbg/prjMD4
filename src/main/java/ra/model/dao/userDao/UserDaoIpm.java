@@ -1,5 +1,6 @@
 package ra.model.dao.userDao;
 
+import ra.model.entity.Cart;
 import ra.model.entity.User;
 import ra.model.entity.UserLogin;
 import ra.model.util.ConnectionDB;
@@ -84,6 +85,7 @@ public class UserDaoIpm implements IUserDao{
         try {
             conn = ConnectionDB.getConnection();
             call= conn.prepareCall("{call findUserById(?)}");
+            call.setInt(1,integer);
             ResultSet rs = call.executeQuery();
             if (rs.next()){
                 user = new User();
@@ -200,4 +202,42 @@ public class UserDaoIpm implements IUserDao{
         }
         return userLogin;
     }
+
+    @Override
+    public boolean changePass(int idC, String pass) {
+        Connection conn = null;
+        CallableStatement call = null;
+        try{
+            conn = ConnectionDB.getConnection();
+            call = conn.prepareCall("{call changePass(?,?)}");
+            call.setInt(1,idC);
+            call.setString(2,pass);
+            call.executeUpdate();
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean updateUser(int idUp, String fullNameUp, String emailUp, String phoneUp, String addressUp) {
+            Connection conn = null;
+            CallableStatement call = null;
+            try{
+                conn = ConnectionDB.getConnection();
+                call = conn.prepareCall("{call updateUser(?,?,?,?,?)}");
+                call.setInt(1,idUp);
+                call.setString(2,fullNameUp);
+                call.setString(3,emailUp);
+                call.setString(4,phoneUp);
+                call.setString(5,addressUp);
+                call.executeUpdate();
+            }catch (Exception e){
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+
 }
