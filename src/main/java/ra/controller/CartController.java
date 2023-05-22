@@ -67,7 +67,9 @@ public class CartController {
         for (CartItem c:list) {
             sum += c.getPrice()*c.getQuantity();
         }
-        cartService.checkOut(userLogin.getCartId(),sum,phone,address, userLogin.getUserId());
+       int cartId = cartService.checkOut(userLogin.getCartId(),sum,phone,address, userLogin.getUserId());
+        userLogin.setCartId(cartId);
+        request.getSession().setAttribute("userLogin",userLogin);
         return "redirect:backToShop";
     }
     @GetMapping("backToShop")
@@ -79,5 +81,4 @@ public class CartController {
         model.addAttribute("listProduct",productList);
         return "home";
     }
-
 }

@@ -10,6 +10,6 @@ public interface ICartService extends IService<CartItem,Integer> {
    List<CartItem> findAllByUserLogin(int cartId);
    CartItem checkExistProduct(Integer proId,Integer cartId);
    void clearCartItem(int cartId);
-   boolean checkOut(int orderID,float total,String phone,String address,int userId);
+   int checkOut(int orderID,float total,String phone,String address,int userId);
 
 }

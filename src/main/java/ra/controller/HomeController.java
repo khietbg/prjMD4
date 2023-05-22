@@ -89,6 +89,11 @@ public class HomeController {
             return "error";
         }
     }
-
+@GetMapping("profile")
+    public String profile(HttpServletRequest request,Model model){
+      UserLogin userLogin = (UserLogin) request.getSession().getAttribute("userLogin");
+      model.addAttribute("userLogin",userLogin);
+        return "profile";
+}
 
 }

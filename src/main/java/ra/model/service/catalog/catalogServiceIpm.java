@@ -1,5 +1,8 @@
 package ra.model.service.catalog;
 
+import ra.model.dao.cartDao.ICartDao;
+import ra.model.dao.catalogDao.CatalogDaoImp;
+import ra.model.dao.catalogDao.ICatalogDao;
 import ra.model.entity.Catalog;
 import ra.model.entity.User;
 import ra.model.util.ConnectionDB;
@@ -12,118 +15,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class catalogServiceIpm implements ICatalogService{
+    ICatalogDao catalogDao = new CatalogDaoImp();
+
     @Override
     public List<Catalog> findAll() {
-        List<Catalog> catalogList = null;
-        Connection conn = null;
-        CallableStatement call = null;
-        try{
-            catalogList= new ArrayList<>();
-            conn = ConnectionDB.getConnection();
-            call = conn.prepareCall("{call getCatalog()}");
-            ResultSet rs = call.executeQuery();
-            while (rs.next()){
-                Catalog catalog = new Catalog();
-               catalog.setCatalogId(rs.getInt("catalogId"));
-               catalog.setCatalogName(rs.getString("catalogName"));
-               catalog.setCatalogStatus(rs.getBoolean("catalogStatus"));
-                catalogList.add(catalog);
-            }
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return catalogList;
+        return catalogDao.findAll();
     }
 
     @Override
     public boolean save(Catalog catalog) {
-        Connection conn = null;
-        CallableStatement call = null;
-        try{
-            conn = ConnectionDB.getConnection();
-            call = conn.prepareCall("{call createCatalog(?)}");
-            call.setString(1,catalog.getCatalogName());
-            int rs = call.executeUpdate();
-            if (rs==1){
-                return true;
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return false;
+        return catalogDao.save(catalog);
     }
 
     @Override
-    public Catalog findById(Integer id) {
-        Connection conn = null;
-        CallableStatement call = null;
-        Catalog catalog = null;
-        try {
-            conn = ConnectionDB.getConnection();
-            call = conn.prepareCall("{call findCatalogById(?)}");
-            call.setInt(1,id);
-            ResultSet rs = call.executeQuery();
-            if (rs.next()){
-                catalog = new Catalog(rs.getInt(1),rs.getString(2),rs.getBoolean(3));
-            }
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return catalog;
+    public Catalog findById(Integer integer) {
+        return catalogDao.findById(integer);
     }
 
     @Override
     public boolean update(Catalog catalog) {
-
-        Connection conn = null;
-        CallableStatement call = null;
-        try{
-            conn = ConnectionDB.getConnection();
-            call = conn.prepareCall("{call updateCatalog(?,?,?)}");
-            call.setInt(1,catalog.getCatalogId());
-            call.setString(2,catalog.getCatalogName());
-            call.setBoolean(3,catalog.isCatalogStatus());
-            int rs = call.executeUpdate();
-            if (rs == 1){
-                return true;
-            }
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return false;
+        return catalogDao.update(catalog);
     }
 
     @Override
-    public boolean delete(Integer id) {
-        Connection conn = null;
-        CallableStatement call = null;
-        try{
-            conn = ConnectionDB.getConnection();
-            call = conn.prepareCall("{call deleteCatalog(?)}");
-            call.setInt(1,id);
-            int rs = call.executeUpdate();
-            if (rs == 1){
-                return true;
-            }
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return false;
+    public boolean delete(Integer integer) {
+        return catalogDao.delete(integer);
     }
 }
